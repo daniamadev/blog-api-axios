@@ -1,36 +1,35 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './styled.css'
 
-export default class Posts extends Component {
-    state = {
-        post: {},
-        id: 0
-    }
+const Posts = () => {
+    const [id, setId] = useState(0)
+    const [post, setPost] = useState({})
 
-    getPosts = () => {
-        const ide = this.state.id + 1
-        axios.get(`https://jsonplaceholder.typicode.com/posts/${ide}`)
+    const getPosts = async () => {
+        const ide = id + 1
+        await axios.get(`https://jsonplaceholder.typicode.com/posts/${ide}`)
             .then(res => {
-                this.setState({
-                    post: res.data,
-                    id: ide
+                const { title, body } = res.data
+                setPost({
+                    title,
+                    body
                 })
+                setId(ide)
             })
     }
 
-    componentDidMount() {
-        this.getPosts()
+    useEffect(() => {
+        getPosts()
+    }, [])
 
-    }
-
-    render() {
-        return (
-            <>
-                <h1>{this.state.post.title}</h1>
-                <p>{this.state.post.body}</p>
-                <button onClick={this.getPosts}>Next</button>
-            </>
-        )
-    }
+    return (
+        <>
+            <h1>{post.title}</h1>
+            <p>{post.body}</p>
+            <button onClick={() => getPosts()}>Next</button>
+        </>
+    )
 }
+
+export default Posts

@@ -1,12 +1,10 @@
 import React from 'react';
 import Posts from './Components/Posts';
 
-function App() {
-  return (
-    <>
-      <Posts />
-    </>
-  );
-}
+const App = () => (
+  <>
+    <Posts />
+  </>
+)
 
 export default App;
