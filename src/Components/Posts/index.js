@@ -9,8 +9,8 @@ const Posts = () => {
         body: "",
     })
 
-    useEffect(() => {
-        axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+    const getPosts = async () => {
+        await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
             .then(res => {
                 const { title, body } = res.data
                 setPost({
@@ -18,13 +18,16 @@ const Posts = () => {
                     body
                 })
             })
-    }, [id])
-
-    const incrementID = () => {
-        setId(id => id + 1)
     }
 
 
+    useEffect(() => {
+        getPosts()
+    }, [id])
+
+    const incrementID = () => {
+        setId(prevID => prevID + 1)
+    }
 
     return (
         <div>
