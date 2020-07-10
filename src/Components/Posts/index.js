@@ -34,12 +34,17 @@ const Posts = () => {
     }
 
     return (
-        <div>
-            <h1>{post.title}</h1>
-            <p>{post.body}</p>
-            <button onClick={() => decrementID()}>Back</button>
-            <button onClick={() => incrementID()}>Next</button>
-        </div>
+        <>
+            {getPosts() == 0 ? (<h1>Loading</h1>)
+                : (
+                    <div>
+                        <h1>{post.title}</h1>
+                        <p>{post.body}</p>
+                        <button onClick={() => decrementID()}>Back</button>
+                        <button onClick={() => incrementID()}>Next</button>
+                    </div>)
+            }
+        </>
     )
 }
 
