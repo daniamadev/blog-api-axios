@@ -10,19 +10,20 @@ const Posts = () => {
         body: "",
     })
 
+    const getPosts = async () => {
+        await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+            .then(res => {
+                const { title, body } = res.data
+                setPost({
+                    title,
+                    body
+                })
+                setLoading(false)
+            })
+    }
+
     useEffect(() => {
         setLoading(true)
-        const getPosts = async () => {
-            await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
-                .then(res => {
-                    const { title, body } = res.data
-                    setPost({
-                        title,
-                        body
-                    })
-                    setLoading(false)
-                })
-        }
         getPosts()
     }, [id])
 
@@ -32,7 +33,11 @@ const Posts = () => {
     }
 
     const decrementID = () => {
-        setId(prevID => prevID - 1)
+        if (id <= 1) {
+            setLoading(false)
+        } else {
+            setId(id => id - 1)
+        }
     }
 
     return (
