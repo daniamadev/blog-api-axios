@@ -29,10 +29,15 @@ const Posts = () => {
         setId(prevID => prevID + 1)
     }
 
+    const decrementID = () => {
+        setId(prevID => prevID - 1)
+    }
+
     return (
         <div>
             <h1>{post.title}</h1>
             <p>{post.body}</p>
+            <button onClick={() => decrementID()}>Back</button>
             <button onClick={() => incrementID()}>Next</button>
         </div>
     )
