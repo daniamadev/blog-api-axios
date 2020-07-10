@@ -4,31 +4,35 @@ import './styled.css'
 
 const Posts = () => {
     const [id, setId] = useState(0)
-    const [post, setPost] = useState({})
+    const [post, setPost] = useState({
+        title: "",
+        id: 0,
+    })
 
-    const getPosts = async () => {
+    useEffect(() => {
         const ide = id + 1
-        await axios.get(`https://jsonplaceholder.typicode.com/posts/${ide}`)
+        axios.get(`https://jsonplaceholder.typicode.com/posts/${ide}`)
             .then(res => {
                 const { title, body } = res.data
                 setPost({
                     title,
                     body
                 })
-                setId(ide)
             })
-    }
-
-    useEffect(() => {
-        getPosts()
     }, [])
 
+    const incrementID = () => {
+        setId(id + 1)
+    }
+
+
+
     return (
-        <>
+        <div>
             <h1>{post.title}</h1>
             <p>{post.body}</p>
-            <button onClick={() => getPosts()}>Next</button>
-        </>
+            <button onClick={() => incrementID()}>Next</button>
+        </div>
     )
 }
 
