@@ -3,15 +3,14 @@ import axios from 'axios'
 import './styled.css'
 
 const Posts = () => {
-    const [id, setId] = useState(0)
+    const [id, setId] = useState(1)
     const [post, setPost] = useState({
         title: "",
-        id: 0,
+        body: "",
     })
 
     useEffect(() => {
-        const ide = id + 1
-        axios.get(`https://jsonplaceholder.typicode.com/posts/${ide}`)
+        axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
             .then(res => {
                 const { title, body } = res.data
                 setPost({
@@ -19,10 +18,10 @@ const Posts = () => {
                     body
                 })
             })
-    }, [])
+    }, [id])
 
     const incrementID = () => {
-        setId(id + 1)
+        setId(id => id + 1)
     }
 
 
